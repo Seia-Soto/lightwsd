@@ -2,7 +2,7 @@ import ws from 'ws'
 import { nanoid } from 'nanoid'
 
 import { attachHandlers, createLogger } from '../../utils'
-import handlers from './handlers'
+import * as handlers from './handlers'
 
 const debug = createLogger('ws')
 
@@ -19,12 +19,12 @@ export default opts => {
       // NOTE: start listening events;
       const channel = 'wsd:' + wss.id + '*'
 
-      opts._redis.sub.psubscribe(channel)
+      opts._redis.sub.subscribe(channel)
 
       debug('subscribing channel:', channel)
 
       // NOTE: attach event handlers;
-      attachHandlers(wss, handlers, debug, opts)
+      attachHandlers(wss, handlers, opts, debug)
 
       // NOTE: return to root object;
       resolve(wss)

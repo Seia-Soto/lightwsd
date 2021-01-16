@@ -1,5 +1,5 @@
 import connection from './connection'
 
-export default {
+export {
   connection
 }

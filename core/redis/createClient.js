@@ -1,32 +1,40 @@
 import redis from 'redis'
 
 import { attachHandlers, createLogger } from '../../utils'
-import handlers from './handlers'
+import * as handlers from './handlers'
 
 const debug = createLogger('redis')
 
 export default opts => {
   return new Promise((resolve, reject) => {
     const { redis: redisOpts } = opts
+    const clients = {
+      pub: redis.createClient(redisOpts),
+      sub: redis.createClient(redisOpts)
+    }
 
-    const client = redis.createClient(redisOpts)
+    let readyState = 0
 
-    client.once('ready', () => {
-      debug('redis client started')
+    const init = client => {
+      client.once('ready', () => {
+        debug('redis client started')
 
-      // NOTE: set some metadata and helper objects for redis client;
-      client.debug = debug
+        // NOTE: set some metadata and helper objects for redis client;
+        client.debug = debug
 
-      // NOTE: attach event handlers;
-      attachHandlers(client, handlers, opts, debug)
+        // NOTE: attach event handlers;
+        attachHandlers(client, handlers, opts, debug)
 
-      // NOTE: create sub connection;
-      client.duplicate(subClient => {
-        resolve({
-          pub: client,
-          sub: subClient
-        })
+        readyState += 1
+
+        // NOTE: if all clients are in ready-state.
+        if (readyState > 1) {
+          resolve(clients)
+        }
       })
-    })
+    }
+
+    init(clients.pub)
+    init(clients.sub)
   })
 }

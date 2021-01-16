@@ -1,5 +1,5 @@
-import fns from './fns'
-import handlers from './handlers'
+import * as fns from './fns'
+import * as handlers from './handlers'
 
 import createServer from './createServer'
 

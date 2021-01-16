@@ -4,9 +4,15 @@
   "main": "index.js",
   "author": "Seia-Soto <seia@outlook.kr>",
   "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "exam": "node exam",
+    "exam:single": "node exam/single"
+  },
   "dependencies": {
     "debug": "^4.3.1",
     "esm": "^3.2.25",
+    "eventemitter3": "^4.0.7",
     "nanoid": "^3.1.20",
     "redis": "^3.0.2",
     "v8-compile-cache": "^2.2.0",
@@ -17,8 +23,10 @@
     "eslint": "^7.17.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.1.3",
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^5.0.0"
+    "eslint-plugin-standard": "^5.0.0",
+    "jest": "^26.6.3"
   }
 }

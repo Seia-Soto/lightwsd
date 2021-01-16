@@ -70,7 +70,7 @@ By calling function `lightwsd` will extend your options which is first argument.
 
 ```js
 // NOTE: import package.
-const lightwsd = require('Seia-Soto/lightwsd')
+const { default: lightwsd } = require('Seia-Soto/lightwsd')
 
 // NOTE: simple trick to bypass eslint rules(standard) and use IIFE in ES6.
 module.exports = (async () => {

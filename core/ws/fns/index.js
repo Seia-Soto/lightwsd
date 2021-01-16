@@ -1,5 +1,5 @@
 import send from './send'
 
-export default {
+export {
   send
 }

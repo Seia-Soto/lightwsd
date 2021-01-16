@@ -1,5 +1,5 @@
 import pmessage from './pmessage'
 
-export default {
+export {
   pmessage
 }
