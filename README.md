@@ -25,7 +25,7 @@ So, I thought that using native WebSocket features are better for both client an
 
 ## About uWebSocket.js
 
-I am a lot of interest of uWebSocket.js which is a part of uNetworking, also, the next version of uws at the time.
+I have a lot of interest of uWebSocket.js which is a part of uNetworking, also, the next version of uws at the time.
 It has surprising performance even from Linux kernel but I couldn't use that because of leak of server instance sharing feature.
 I know that library is written on C++ for performance and adopts uWebSocket's features perfectly.
 However, sharing HTTP server instance has a lot of advantage at the time because HTTP server and WebSocket server's variables can be shared.
@@ -77,6 +77,10 @@ Currently, jest test suite isn't available, yet.
 ## `yarn exam`
 
 Runs a single test server on port `8081` and create a temporal client to test manually.
+
+## `yarn lint`
+
+Runs ESlint to test syntax.
 
 # Usage
 
