@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
+    "lint": "eslint . --ext .js",
     "exam": "node exam",
     "exam:single": "node exam/single"
   },

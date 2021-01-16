@@ -3,9 +3,14 @@
 A redis based horizontal scalable websocket server handler, specially for project Yeonit.
 And a lightweight essential Socket.io replacement staying with standard WebSocket which has better memory-usage and only essential functionalities.
 
+> **Warning**
+>
+> This project isn't tested yet!
+
 ## Table of Contents
 
 - [Development](#development)
+- [Scripts](#scripts)
 - [Usage](#usage)
 - [API](#api)
 
@@ -62,6 +67,16 @@ Also, following modules are used to enhance the experience.
 I do Standard.JS.
 
 [![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
+
+# Scripts
+
+## `yarn test`
+
+Currently, jest test suite isn't available, yet.
+
+## `yarn exam`
+
+Runs a single test server on port `8081` and create a temporal client to test manually.
 
 # Usage
 
