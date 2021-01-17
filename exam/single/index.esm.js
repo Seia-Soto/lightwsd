@@ -36,6 +36,10 @@ const client = async () => {
 
   ws.on('open', () => debug('open'))
   ws.on('message', data => debug('incoming:', data))
+  ws.on('close', () => {
+    debug('close')
+    process.exit(0)
+  })
 }
 
 server(8081)

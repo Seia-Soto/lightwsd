@@ -12,7 +12,7 @@ export default async (opts, debug, pattern, channel, message) => {
         const valid =
           (payload) &&
           (destination) &&
-          (opts._ws.connection[destination])
+          (opts._ws.connections[destination])
         if (!valid) return
 
         opts._ws.connections[destination].send(payload, options)
@@ -25,7 +25,7 @@ export default async (opts, debug, pattern, channel, message) => {
         } = message
         const valid =
           (destination) &&
-          (opts._ws.connection[destination])
+          (opts._ws.connections[destination])
         if (!valid) return
 
         opts._ws.connections[destination].terminate()

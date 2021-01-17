@@ -4,6 +4,7 @@ import lightwsd from '../../index'
 import { createLogger } from '../../utils'
 
 let connections = 0
+let messages = 0
 
 const server = async port => {
   const debug = createLogger('exam/server')
@@ -40,7 +41,11 @@ const client = async port => {
   const ws = new WebSocket('ws://localhost:' + port)
 
   ws.on('open', () => debug('open'))
-  ws.on('message', data => debug('incoming:', data))
+  ws.on('message', data => {
+    debug('incoming:', data)
+
+    if (++messages >= 10) process.exit(0)
+  })
 }
 
 server(8081)
