@@ -21,10 +21,10 @@ So, I thought that using native WebSocket features are better for both client an
 
 ## About uWebSocket.js
 
-I have a lot of interest of uWebSocket.js which is a part of uNetworking, also, the next version of uws at the time.
+I have a lot of interest of uWebSocket.js which is a part of uNetworking, also, the next version of uws.
 It has surprising performance even from Linux kernel but I couldn't use that because of leak of server instance sharing feature.
 I know that library is written on C++ for performance and adopts uWebSocket's features perfectly.
-However, sharing HTTP server instance has a lot of advantage at the time because HTTP server and WebSocket server's variables can be shared.
+However, sharing HTTP server instance has a lot of advantage because HTTP server and WebSocket server's variables can be shared.
 Because using server instance provided by uWebSocket.js is hard for existing projects, I decided to work with ws package as a secondary shot.
 
 ## TODO
