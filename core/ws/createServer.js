@@ -17,11 +17,16 @@ export default opts => {
       wss.connections = {}
 
       // NOTE: start listening events;
-      const channel = 'wsd:' + opts.stateNS + wss.id + '*'
+      const channel = 'wsd:' + opts.stateNS + wss.id
 
-      opts._redis.sub.psubscribe(channel)
+      opts._redis.sub.psubscribe(channel + '*')
 
       debug('subscribing channel:', channel)
+
+      // NOTE: register to global event waitlist;
+      opts._redis.pub.hmset('wsd:' + opts.stateNS, [wss.id, 1])
+
+      debug('subscribing global events')
 
       // NOTE: attach event handlers;
       attachHandlers(wss, handlers, opts, debug)

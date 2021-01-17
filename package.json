@@ -1,6 +1,6 @@
 {
   "name": "lightwsd",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "index.js",
   "author": "Seia-Soto <seia@outlook.kr>",
   "license": "MIT",
@@ -9,7 +9,8 @@
     "lint": "eslint . --ext .js",
     "exam": "node exam",
     "exam:single": "node exam/single",
-    "exam:multi": "node exam/multi"
+    "exam:multi": "node exam/multi",
+    "exam:broadcast": "node exam/broadcast"
   },
   "dependencies": {
     "debug": "^4.3.1",
@@ -30,5 +31,9 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^5.0.0",
     "jest": "^26.6.3"
+  },
+  "optionalDependencies": {
+    "bufferutil": "^4.0.3",
+    "utf-8-validate": "^5.0.4"
   }
 }

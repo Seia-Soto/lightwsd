@@ -2,8 +2,6 @@ export default async (opts, debug, pattern, channel, message) => {
   try {
     message = JSON.parse(message)
 
-    debug('received signal to send message to:', message.destination)
-
     switch (message.action) {
       case 'send': {
         const {
@@ -30,7 +28,7 @@ export default async (opts, debug, pattern, channel, message) => {
         if (!valid) return
 
         for (const connection in opts._ws.connections) {
-          connection.send(payload, options)
+          opts._ws.connections[connection].send(payload, options)
         }
 
         break
@@ -38,6 +36,10 @@ export default async (opts, debug, pattern, channel, message) => {
       default: throw new Error()
     }
   } catch (error) {
+    if (error) {
+      debug('error while handling event:', error)
+    }
+
     debug('received invalid signal:', message)
   }
 }
