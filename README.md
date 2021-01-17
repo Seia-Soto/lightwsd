@@ -182,6 +182,21 @@ lightwsd({
   })
 ```
 
+### Event: `'connection.create'`
+
+- `connection` (WebSocket) The websocket connection.
+- `request` (WebSocket.Request) The request object provided with WebSocket connection object.
+
+Lightwsd will emit event `connection.create` when new connection is upgraded from HTTP request.
+Also, we add `id` property to `connection` object.
+
+### Event: `'connection.delete'`
+
+- `connectionId` (string) The websocket connection id which released.
+
+Lightwsd will emit event `connection.delete` when connection is closed.
+I recommend you to handle this event instead of `close` event from ws object because this event will be emitted after deletion from `ws.connections` object internally.
+
 ### `lightwsd.fns.send(connectionId, [payload], [options])`
 
 - `connectionId` (required string, no default) The websocket connection id to send payload.

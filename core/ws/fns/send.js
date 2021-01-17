@@ -28,7 +28,7 @@ export default (opts, connectionId, payload, options) => {
 
     if (payloadType === 'object') {
       payload = JSON.stringify(payload)
-    } else {
+    } else if (payloadType !== 'string') {
       payload = String(payload)
     }
 
@@ -54,21 +54,23 @@ export default (opts, connectionId, payload, options) => {
         return
       }
 
-      redis.pub.hmset(
-        key,
-        [
-          'action',
-          'send',
-          'options',
-          JSON.stringify(options),
-          'payload',
-          payload
-        ], error => {
-          if (error) reject(error)
+      const state = {
+        action: 'send',
+        destination: connectionId,
+        options,
+        payload
+      }
 
-          resolve(error)
+      redis.pub.publish(key, JSON.stringify(state), error => {
+        if (error) {
+          const message = 'aborting, error occured while publishing event to redis store: ' + error
+
+          debug(message)
+          reject(message)
         }
-      )
+
+        resolve()
+      })
     })
   })
 }
