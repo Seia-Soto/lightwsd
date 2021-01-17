@@ -11,10 +11,24 @@ export default async (opts, debug, pattern, channel, message) => {
         } = message
         const valid =
           (payload) &&
-          (destination)
+          (destination) &&
+          (opts._ws.connection[destination])
         if (!valid) return
 
         opts._ws.connections[destination].send(payload, options)
+
+        break
+      }
+      case 'close': {
+        const {
+          destination
+        } = message
+        const valid =
+          (destination) &&
+          (opts._ws.connection[destination])
+        if (!valid) return
+
+        opts._ws.connections[destination].terminate()
 
         break
       }

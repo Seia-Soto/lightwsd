@@ -230,6 +230,20 @@ const { fns } = await lightwsd()
 await fns.broadcast({ hello: 'world' })
 ```
 
+### `lightwsd.fns.close(connectionId)`
+
+- `connectionId` (required string, no default) The websocket connection id to terminate.
+
+A helper function to terminate websocket connection over clusters.
+This functions works actually same just like `lightwsd.fns.send` does interally.
+It won't publish event to redis store channel if the connection is available from current websocket connection.
+
+```js
+const { fns } = await lightwsd()
+
+await fns.close(connectionId)
+```
+
 # LICENSE
 
 Current project is distributed under [MIT License](./LICENSE).
