@@ -74,9 +74,15 @@ I do Standard.JS.
 
 Currently, jest test suite isn't available, yet.
 
-## `yarn exam`
+## `yarn exam[:mode]`
 
 Runs a single test server on port `8081` and create a temporal client to test manually.
+
+### Possible values for `:mode`
+
+- (null)
+- single
+- multi
 
 ## `yarn lint`
 

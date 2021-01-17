@@ -3,9 +3,14 @@ export default (opts, connectionId, payload, options) => {
 
   const {
     _ws: ws,
-    _redis: redis,
-    debug
+    _redis: redis
   } = opts
+  const {
+    debug
+  } = ws
+
+  payload = payload || ''
+  options = options || {}
 
   return new Promise((resolve, reject) => {
     if (!ws) {
@@ -37,7 +42,9 @@ export default (opts, connectionId, payload, options) => {
 
     const key = 'wsd:' + opts.stateNS + connectionId
 
-    redis.pub.hget(key, (error, result) => {
+    debug('sending data though another websocket identified by:', key)
+
+    redis.pub.hget(key, ['state'], (error, result) => {
       if (error || !result) {
         const message = 'aborting, error occured or socket connection is not existing: ' + error
 

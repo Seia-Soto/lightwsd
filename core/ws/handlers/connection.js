@@ -17,7 +17,11 @@ export default (opts, debug, connection, request) => {
   ws.connections[connection.id] = connection
 
   // NOTE: register to redis store;
-  redis.pub.hmset('wsd:' + opts.stateNS + connection.id, ['state', 'c_est'])
+  const key = 'wsd:' + opts.stateNS + connection.id
+
+  redis.pub.hmset(key, ['state', 'c_est'])
+
+  debug('set current connection established identified by:', key)
 
   debug('connection established:', connection.id)
 

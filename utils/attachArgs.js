@@ -1,4 +1,7 @@
 export default (fns, ...bind) => {
+  // NOTE: copy object;
+  fns = Object.assign({}, fns)
+
   const fnNames = Object.keys(fns)
 
   for (let i = 0, l = fnNames.length; i < l; i++) {

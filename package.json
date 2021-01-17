@@ -8,7 +8,8 @@
     "test": "jest",
     "lint": "eslint . --ext .js",
     "exam": "node exam",
-    "exam:single": "node exam/single"
+    "exam:single": "node exam/single",
+    "exam:multi": "node exam/multi"
   },
   "dependencies": {
     "debug": "^4.3.1",

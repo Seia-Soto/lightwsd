@@ -17,7 +17,7 @@ export default opts => {
       wss.connections = {}
 
       // NOTE: start listening events;
-      const channel = 'wsd:' + wss.id + '*'
+      const channel = 'wsd:' + wss.id
 
       opts._redis.sub.subscribe(channel)
 

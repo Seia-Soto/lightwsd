@@ -3,6 +3,8 @@ import WebSocket from 'ws'
 import lightwsd from '../../index'
 import { createLogger } from '../../utils'
 
+let cid = 0
+
 const server = async port => {
   const debug = createLogger('exam/server')
 
@@ -14,18 +16,25 @@ const server = async port => {
     }
   })
 
-  signal.on('connection.create', async (connection, request) => {
-    debug('connected:', connection.id)
-    debug('sending data with ws built-in method')
+  if (cid) {
+    debug('try to send data to client:', cid)
 
-    connection.send('asdf')
+    fns.send(cid, { hello: 'world' })
 
-    debug('sending data with fns helper functions')
-
-    fns.send(connection.id, 'asdf')
-  })
+    return
+  }
 
   client()
+
+  signal.on('connection.create', async (connection, request) => {
+    debug('connected:', connection.id)
+
+    cid = connection.id
+
+    debug('opening new server to send message')
+
+    server(8082)
+  })
 }
 const client = async () => {
   const debug = createLogger('exam/client')
