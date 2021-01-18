@@ -41,6 +41,6 @@ export default opts => {
       init(server)
     })
 
-    if (opts.mode === 'noServer' || opts.server) init(server)
+    if (wsOpts.noServer) init(server)
   })
 }
