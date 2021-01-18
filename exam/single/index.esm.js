@@ -22,7 +22,8 @@ const server = async port => {
 
     debug('sending data with fns helper functions')
 
-    fns.send(connection.id, 'asdf')
+    await fns.send(connection.id, 'asdf')
+    await fns.exit()
   })
 
   client()
@@ -36,10 +37,7 @@ const client = async () => {
 
   ws.on('open', () => debug('open'))
   ws.on('message', data => debug('incoming:', data))
-  ws.on('close', () => {
-    debug('close')
-    process.exit(0)
-  })
+  ws.on('close', () => debug('close'))
 }
 
 server(8081)

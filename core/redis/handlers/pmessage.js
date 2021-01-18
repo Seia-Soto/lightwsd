@@ -47,6 +47,18 @@ export default async (opts, debug, pattern, channel, message) => {
 
         break
       }
+      case 'exit': {
+        debug('terminating both ws and redis instance')
+
+        opts._ws.close()
+
+        opts.signal.on('lightwsd.close', () => {
+          opts._redis.sub.end(true)
+          opts._redis.pub.end(true)
+        })
+
+        break
+      }
       default: throw new Error()
     }
   } catch (error) {

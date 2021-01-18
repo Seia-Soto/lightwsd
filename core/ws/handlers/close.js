@@ -25,5 +25,7 @@ export default (opts, debug) => {
     }
 
     debug('cleaned up')
+
+    opts.signal.emit('lightwsd.close')
   })
 }

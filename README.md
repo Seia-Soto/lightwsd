@@ -195,6 +195,12 @@ Also, we add `id` property to `connection` object.
 Lightwsd will emit event `connection.delete` when connection is closed.
 I recommend you to handle this event instead of `close` event from ws object because this event will be emitted after deletion from `ws.connections` object internally.
 
+### Event: `'lightwsd.close'`
+
+This event will be emitted after lightwsd finishes cleaning tasks.
+You can safely call `lightwsd.fns.exit` function to terminate all redis and websocket connections across clusters.
+The reason why terminating instance after this event occured is because it cleans up redis store and will make an effect to reduce cost on broadcasting.
+
 ### `lightwsd.fns.send(connectionId, [payload], [options])`
 
 - `connectionId` (required string, no default) The websocket connection id to send payload.
@@ -242,6 +248,28 @@ It won't publish event to redis store channel if the connection is available fro
 const { fns } = await lightwsd()
 
 await fns.close(connectionId)
+```
+
+### `lightwsd.fns.exit()`
+
+A helper function to terminate redis and websocket sessions across clusters.
+This function will make `lightwsd.close` event after it deletes related redis hashmaps to reduce cost of broadcasting when next time server created.
+
+```js
+const { fns } = await lightwsd()
+
+await fns.exit()
+```
+
+If you've provided a redis instance to use existing redis connection and don't want to close it, you need to close websocket server manually to cause `lightwsd.close` event.
+However, closing one websocket instance won't affect all clusters.
+
+```js
+const { _ws: ws, signal } = await lightwsd()
+
+ws.close()
+
+signal.on('lightwsd.close', () => console.log('websocket sessions all closed!'))
 ```
 
 # LICENSE
