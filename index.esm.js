@@ -21,7 +21,15 @@ const lightwsd = async opts => {
   opts.signal = opts.signal || new EventEmitter()
 
   // NOTE: create redis and websocket server instance;
-  if (!opts._redis) opts._redis = await redis.createClient(opts)
+  if (!opts._redis) {
+    opts._redis = await redis.createClient(opts)
+  } else {
+    // NOTE: duplicate client when redis instance provided;
+    opts._redis = {
+      pub: opts._redis,
+      sub: await redis.duplicate(opts._redis)
+    }
+  }
   if (!opts._ws) opts._ws = await ws.createServer(opts)
 
   // NOTE: bind current `opts` to functions;
