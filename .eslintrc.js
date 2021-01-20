@@ -2,8 +2,7 @@ module.exports = {
   env: {
     commonjs: true,
     es6: true,
-    node: true,
-    'jest/globals': true
+    node: true
   },
   extends: [
     'standard'
@@ -25,8 +24,5 @@ module.exports = {
         VariableDeclarator: 'first'
       }
     ]
-  },
-  plugins: [
-    'jest'
-  ]
+  }
 }

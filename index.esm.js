@@ -29,6 +29,7 @@ const lightwsd = async opts => {
       pub: opts._redis,
       sub: await redis.duplicate(opts._redis)
     }
+    await redis.init(opts._redis.sub)
   }
   if (!opts._ws) opts._ws = await ws.createServer(opts)
 
